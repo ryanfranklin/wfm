@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wfm.iml" filepath="$PROJECT_DIR$/wfm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wfm-audit/wfm-audit.iml" filepath="$PROJECT_DIR$/wfm-audit/wfm-audit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wfm-employee/wfm-employee.iml" filepath="$PROJECT_DIR$/wfm-employee/wfm-employee.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wfm-employee/wfm-order.iml" filepath="$PROJECT_DIR$/wfm-employee/wfm-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wfm-audit/wfm-shipping.iml" filepath="$PROJECT_DIR$/wfm-audit/wfm-shipping.iml" />
+    </modules>
+  </component>
+</project>

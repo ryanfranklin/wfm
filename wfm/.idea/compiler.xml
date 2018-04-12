@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="wfm-audit" />
+        <module name="wfm-employee" />
+        <module name="wfm-order" />
+        <module name="wfm-shipping" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="wfm" target="1.8" />
+      <module name="wfm-audit" target="1.8" />
+      <module name="wfm-employee" target="1.8" />
+      <module name="wfm-order" target="1.8" />
+      <module name="wfm-shipping" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
