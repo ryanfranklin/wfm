@@ -1,6 +1,7 @@
 package com.ryanfranklin.employee.service;
 
 import com.ryanfranklin.employee.exception.NotFoundException;
+import com.ryanfranklin.employee.model.audit.Audit;
 import com.ryanfranklin.employee.repository.EmployeeRepository;
 import com.ryanfranklin.employee.model.Employee;
 import org.slf4j.Logger;
@@ -19,10 +20,10 @@ public class EmployeeService {
 
 	private EmployeeRepository employeeRepository;
 
-	private KafkaTemplate<String, Employee> kafkaTemplate;
+	private KafkaTemplate<String, Audit> kafkaTemplate;
 
 	@Autowired
-	private EmployeeService(EmployeeRepository employeeRepository, KafkaTemplate<String, Employee> kafkaTemplate) {
+	private EmployeeService(EmployeeRepository employeeRepository, KafkaTemplate<String, Audit> kafkaTemplate) {
 		this.employeeRepository = employeeRepository;
 		this.kafkaTemplate = kafkaTemplate;
 	}
@@ -66,6 +67,11 @@ public class EmployeeService {
 			throw new NotFoundException();
 		}
 		return employee;
+	}
+
+	private void createAuditEvent(Audit audit) {
+
+		kafkaTemplate.send("audit", audit.getId(), audit);
 	}
 
 }

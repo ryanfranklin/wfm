@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Entity
-@Table(name = "EMPLOYEE")
+@Table(name = "Employee")
 public class Employee {
 
 	@Id
