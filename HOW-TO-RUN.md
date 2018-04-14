@@ -103,7 +103,7 @@ Creating wfm_audit_1     ... done
 Creating wfm_apache_1    ... done
 ```
 
-Check whether all containers are running using `docker-compose up -d`:
+Check whether all containers are running using `docker ps`:
 
 
 ```

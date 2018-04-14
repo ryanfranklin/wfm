@@ -1,8 +1,6 @@
 WFM - employee audit
 ==================
 
-[Deutsche Anleitung zum Starten des Beispiels](WIE-LAUFEN.md)
-
 This is a spring boot microservices application to demonstrate asynchronous communication between services via Apache Kafka broker. Each component is deployed in a docker container.
 
 There are two microservices:
