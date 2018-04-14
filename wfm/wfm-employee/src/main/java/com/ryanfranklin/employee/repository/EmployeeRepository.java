@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long> {
 
-	@Query("SELECT max(o.updatedEpochMilli) FROM Employee o")
-	long lastUpdate();
+  @Query("SELECT max(o.updatedEpochMilli) FROM Employee o")
+  long lastUpdate();
 
 }

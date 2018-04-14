@@ -11,20 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuditService {
 
-    private final Logger log = LoggerFactory.getLogger(AuditService.class);
+  private final Logger log = LoggerFactory.getLogger(AuditService.class);
 
-    private AuditRepository auditRepository;
+  private AuditRepository auditRepository;
 
-    @Autowired
-    public AuditService(AuditRepository auditRepository) {
-        super();
-        this.auditRepository = auditRepository;
-    }
+  @Autowired
+  public AuditService(AuditRepository auditRepository) {
+    super();
+    this.auditRepository = auditRepository;
+  }
 
-    @Transactional
-    public void saveAudit(Audit audit) {
-        Audit savedAudit = auditRepository.save(audit);
-        log.trace("Saved audit: {} for type: {}.", savedAudit.getId(), savedAudit.getEntity());
+  @Transactional
+  public void saveAudit(Audit audit) {
+    Audit savedAudit = auditRepository.save(audit);
+    log.trace("Saved audit: {} for type: {}.", savedAudit.getId(), savedAudit.getEntity());
 
-    }
+  }
 }

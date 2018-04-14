@@ -5,8 +5,8 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 public class AuditDeserializer extends JsonDeserializer<Audit> {
 
-	public AuditDeserializer() {
-		super(Audit.class);
-	}
+  public AuditDeserializer() {
+    super(Audit.class);
+  }
 
 }

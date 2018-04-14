@@ -5,7 +5,7 @@ package com.ryanfranklin.audit.model;
  */
 public enum AuditAction {
 
-    CREATE,
-    UPDATE,
-    DELETE;
+  CREATE,
+  UPDATE,
+  DELETE
 }

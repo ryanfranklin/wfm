@@ -11,20 +11,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuditKafkaListener {
 
-	private final Logger log = LoggerFactory.getLogger(AuditKafkaListener.class);
+  private final Logger log = LoggerFactory.getLogger(AuditKafkaListener.class);
 
-	private AuditService auditService;
+  private AuditService auditService;
 
-	public AuditKafkaListener(AuditService auditService) {
-		super();
-		this.auditService = auditService;
-	}
+  public AuditKafkaListener(AuditService auditService) {
+    super();
+    this.auditService = auditService;
+  }
 
-	@KafkaListener(topics = "audit")
-	public void auditListener(Audit audit, Acknowledgment acknowledgment) {
-		log.info("Revceived audit  " + audit.getId());
-		auditService.audit(audit);
-		acknowledgment.acknowledge();
-	}
+  @KafkaListener(topics = "audit")
+  public void auditListener(Audit audit, Acknowledgment acknowledgment) {
+    log.info("Revceived audit  " + audit.getId());
+    auditService.saveAudit(audit);
+    acknowledgment.acknowledge();
+  }
 
 }

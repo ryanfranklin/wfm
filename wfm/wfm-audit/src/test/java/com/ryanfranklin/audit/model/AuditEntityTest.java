@@ -1,16 +1,16 @@
 package com.ryanfranklin.audit.model;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class AuditEntityTest {
 
-    private static String AUDIT_ENTITY_STRING = "employee";
+  private static String AUDIT_ENTITY_STRING = "employee";
 
-    @Test
-    public void getEntityString() {
+  @Test
+  public void getEntityString() {
 
-        assertEquals(AuditEntity.EMPLOYEE.getEntityString(), AUDIT_ENTITY_STRING);
-    }
+    assertEquals(AuditEntity.EMPLOYEE.getEntityString(), AUDIT_ENTITY_STRING);
+  }
 }
