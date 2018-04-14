@@ -1,30 +1,39 @@
 package com.ryanfranklin.employee.model.audit;
 
-import java.util.Objects;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ * Represents audit information of supported entities.
+ */
 public class Audit {
 
-    private String id;
     private long entityId;
+    @NotNull
+    @Size(min = 1)
     private String entity;
+    @NotNull
     private AuditAction auditAction;
     private long updatedEpochMilli;
 
-    public Audit(String auditId, long entityId, String entity, AuditAction auditAction, long updatedEpochMilli) {
-        this.id = auditId;
+    /**
+     * Constructs an audit object.
+     * @param entityId the identifier of the entity being audited
+     * @param entity the entity being audited
+     * @param auditAction the action on the entity that spurred the audit
+     * @param updatedEpochMilli the time stamp that the audit occurred in epoch milliseconds
+     */
+    public Audit(long entityId, String entity, AuditAction auditAction, long updatedEpochMilli) {
         this.entityId = entityId;
         this.entity = entity;
         this.auditAction = auditAction;
         this.updatedEpochMilli = updatedEpochMilli;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
     }
 
     /**
@@ -64,20 +73,17 @@ public class Audit {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Audit that = (Audit) o;
-        return entityId == that.entityId &&
-                updatedEpochMilli == that.updatedEpochMilli &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(entity, that.entity) &&
-                auditAction == that.auditAction;
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @Override
     public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-        return Objects.hash(id, entityId, entity, auditAction, updatedEpochMilli);
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }

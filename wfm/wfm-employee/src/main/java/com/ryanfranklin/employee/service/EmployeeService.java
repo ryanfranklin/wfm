@@ -71,7 +71,7 @@ public class EmployeeService {
 
 	private void createAuditEvent(Audit audit) {
 
-		kafkaTemplate.send("audit", audit.getId(), audit);
+		kafkaTemplate.send("audit", audit.getEntity(), audit);
 	}
 
 }

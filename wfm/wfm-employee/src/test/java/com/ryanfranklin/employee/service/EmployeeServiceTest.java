@@ -21,7 +21,6 @@ public class EmployeeServiceTest {
     private static long EMPLOYEE_ID = 123456;
     private static String EMPLOYEE_FIRST_NAME = "ryan";
     private static String EMPLOYEE_LAST_NAME = "franklin";
-
     private static String EMPLOYEE_EMAIL = "rfranklin1998@gmail.com";
 
     @Mock

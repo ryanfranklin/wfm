@@ -1,4 +1,4 @@
-package com.ryanfranklin.employee.model.audit;
+package com.ryanfranklin.audit.model;
 
 public enum AuditEntity {
 

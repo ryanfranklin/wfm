@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuditService {
-    public void audit(Audit audit) {
-
-    }
 
     private final Logger log = LoggerFactory.getLogger(AuditService.class);
 
@@ -26,6 +23,8 @@ public class AuditService {
 
     @Transactional
     public void saveAudit(Audit audit) {
-        //TODO: IMPLEMENT
+        Audit savedAudit = auditRepository.save(audit);
+        log.trace("Saved audit: {} for type: {}.", savedAudit.getId(), savedAudit.getEntity());
+
     }
 }
