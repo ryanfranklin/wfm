@@ -13,11 +13,10 @@ public class AuditSearch {
   private static Logger logger = LoggerFactory.getLogger(AuditSearch.class);
 
   private Long entityId;
-  private AuditEntity auditEntity;
-  private AuditAction auditAction;
+  private AuditEntity entity;
+  private AuditAction action;
   private Long updatedFromEpochMilli;
   private Long updatedToEpochMilli;
-
 
   /**
    * Gets entityId
@@ -42,35 +41,35 @@ public class AuditSearch {
    *
    * @return the entity or null if the field hasn't been set
    */
-  public AuditEntity getAuditEntity() {
-    return auditEntity;
+  public AuditEntity getEntity() {
+    return entity;
   }
 
   /**
    * Sets entity
    *
-   * @param auditEntity the of entity of the AuditSearch
+   * @param entity the of entity of the AuditSearch
    */
-  public void setAuditEntity(AuditEntity auditEntity) {
-    this.auditEntity = auditEntity;
+  public void setEntity(AuditEntity entity) {
+    this.entity = entity;
   }
 
   /**
-   * Gets auditAction
+   * Gets action
    *
-   * @return the auditAction or null if the field hasn't been set
+   * @return the action or null if the field hasn't been set
    */
-  public AuditAction getAuditAction() {
-    return auditAction;
+  public AuditAction getAction() {
+    return action;
   }
 
   /**
-   * Sets auditAction
+   * Sets action
    *
-   * @param auditAction the of auditAction of the AuditSearch
+   * @param action the of action of the AuditSearch
    */
-  public void setAuditAction(AuditAction auditAction) {
-    this.auditAction = auditAction;
+  public void setAction(AuditAction action) {
+    this.action = action;
   }
 
   /**
@@ -115,10 +114,10 @@ public class AuditSearch {
     if (getEntityId() != null) {
       joiner.add(AuditSearchValues.ID.name());
     }
-    if (getAuditEntity() != null) {
+    if (getEntity() != null) {
       joiner.add(AuditSearchValues.ENTITY.name());
     }
-    if (getAuditAction() != null) {
+    if (getAction() != null) {
       joiner.add(AuditSearchValues.ACTION.name());
     }
     if (getUpdatedFromEpochMilli() != null) {

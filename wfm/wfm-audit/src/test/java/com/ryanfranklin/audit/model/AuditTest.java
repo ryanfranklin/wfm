@@ -13,6 +13,7 @@ public class AuditTest {
   private static AuditAction ACTION = AuditAction.CREATE;
   private static long UPDATE_EPOCH_MILLI = Instant.now().toEpochMilli();
 
+
   @Test
   public void auditConstuctorGettersSuccess() {
     Audit audit = new Audit(

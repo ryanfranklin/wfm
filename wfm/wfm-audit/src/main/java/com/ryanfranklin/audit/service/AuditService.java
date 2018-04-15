@@ -2,7 +2,6 @@ package com.ryanfranklin.audit.service;
 
 import com.ryanfranklin.audit.exception.BadRequestException;
 import com.ryanfranklin.audit.model.Audit;
-import com.ryanfranklin.audit.model.AuditEntity;
 import com.ryanfranklin.audit.model.AuditSearch;
 import com.ryanfranklin.audit.model.AuditSearchCombination;
 import com.ryanfranklin.audit.repository.AuditRepository;
@@ -42,13 +41,13 @@ public class AuditService {
         return auditRepository.findAll();
 
       case ENTITY:
-        return auditRepository.findByEntity(auditSearch.getAuditEntity());
+        return auditRepository.findByEntity(auditSearch.getEntity());
 
       case ACTION:
-        return auditRepository.findByAction(auditSearch.getAuditAction());
+        return auditRepository.findByAction(auditSearch.getAction());
 
       case ENTITY_ACTION:
-        return auditRepository.findByEntityAndAction(auditSearch.getAuditEntity(), auditSearch.getAuditAction());
+        return auditRepository.findByEntityAndAction(auditSearch.getEntity(), auditSearch.getAction());
 
       default:
         log.debug("Audit search combination {} not supported.", searchCombo);

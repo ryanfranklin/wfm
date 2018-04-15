@@ -13,16 +13,13 @@ import com.ryanfranklin.audit.service.AuditService;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -77,10 +74,10 @@ public class AuditControllerTest {
 //    audits.add(audit);
 
     searchByEntity = new AuditSearch();
-    searchByEntity.setAuditEntity(AuditEntity.EMPLOYEE);
+    searchByEntity.setEntity(AuditEntity.EMPLOYEE);
 
     searchByAction = new AuditSearch();
-    searchByAction.setAuditAction(AuditAction.CREATE);
+    searchByAction.setAction(AuditAction.CREATE);
   }
 
 
