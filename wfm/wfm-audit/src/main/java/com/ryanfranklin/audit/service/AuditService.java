@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuditService {
 
-  private final Logger log = LoggerFactory.getLogger(AuditService.class);
+  private final Logger log = LoggerFactory.getLogger(this.getClass());
 
   private AuditRepository auditRepository;
 
@@ -54,9 +54,5 @@ public class AuditService {
         log.debug("Audit search combination {} not supported.", searchCombo);
         throw new BadRequestException(); //TODO: Return descriptive message with response.
     }
-  }
-
-  public List<Audit>  getAudits() {
-    return null;
   }
 }

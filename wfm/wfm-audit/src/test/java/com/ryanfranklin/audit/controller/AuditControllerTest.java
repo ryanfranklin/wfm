@@ -89,7 +89,7 @@ public class AuditControllerTest {
     List<Audit> audits = new ArrayList<>();
     audits.add(audit);
 
-    given(auditService.getAudits()).willReturn(audits);
+    given(auditService.getAudits(null)).willReturn(audits);
 
     MockHttpServletResponse response = mockMvc.perform(get(URL_PATH)
         .param(ENTITY_QUERY_PARAM_KEY, ENTITY_QUERY_PARAM_VALUE)

@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuditController {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-  private AuditService auditService;
   private static String ENTITY = "entity";
   private static String ACTION = "action";
+
+  private AuditService auditService;
 
   @Autowired
   private AuditController(AuditService auditService) {
