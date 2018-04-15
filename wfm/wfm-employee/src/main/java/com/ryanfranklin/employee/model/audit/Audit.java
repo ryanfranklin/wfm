@@ -16,7 +16,7 @@ public class Audit {
   @Size(min = 1)
   private AuditEntity entity;
   @NotNull
-  private AuditAction auditAction;
+  private AuditAction action;
   private long updatedEpochMilli;
 
   /**
@@ -24,13 +24,13 @@ public class Audit {
    *
    * @param entityId the identifier of the entity being audited
    * @param entity the entity being audited
-   * @param auditAction the action on the entity that spurred the audit
+   * @param action the action on the entity that spurred the audit
    * @param updatedEpochMilli the time stamp that the audit occurred in epoch milliseconds
    */
-  public Audit(long entityId, AuditEntity entity, AuditAction auditAction, long updatedEpochMilli) {
+  public Audit(long entityId, AuditEntity entity, AuditAction action, long updatedEpochMilli) {
     this.entityId = entityId;
     this.entity = entity;
-    this.auditAction = auditAction;
+    this.action = action;
     this.updatedEpochMilli = updatedEpochMilli;
   }
 
@@ -55,10 +55,10 @@ public class Audit {
   /**
    * Gets auditAction
    *
-   * @return the auditAction
+   * @return the action
    */
-  public AuditAction getAuditAction() {
-    return auditAction;
+  public AuditAction getAction() {
+    return action;
   }
 
   /**

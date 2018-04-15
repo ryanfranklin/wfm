@@ -31,6 +31,8 @@ public class Audit {
   @Column(nullable = false)
   private long updatedEpochMilli;
 
+  //For Jackson
+  public Audit(){}
   /**
    * Constructs an audit object.
    *

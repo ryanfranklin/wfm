@@ -80,7 +80,7 @@ public class EmployeeService {
         Instant.now().toEpochMilli()
     );
 
-    String eventId = audit.getEntity() + "_" + audit.getEntityId();
+    String eventId = audit.getEntity() + "_" + audit.getEntityId() + "_" + audit.getUpdatedEpochMilli();
     logger.debug("Sending audit event with id: {}.", eventId);
 
     kafkaTemplate.send("audit", eventId, audit);

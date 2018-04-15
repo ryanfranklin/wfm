@@ -23,7 +23,7 @@ public class AuditTest {
 
     assertEquals(audit.getEntityId(), ENTITY_ID);
     assertEquals(audit.getEntity(), ENTITY);
-    assertEquals(audit.getAuditAction(), ACTION);
+    assertEquals(audit.getAction(), ACTION);
     assertEquals(audit.getUpdatedEpochMilli(), UPDATE_EPOCH_MILLI);
   }
 }

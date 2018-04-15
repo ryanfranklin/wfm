@@ -38,7 +38,6 @@ public class Employee {
   private String email;
 
   @Column(nullable = false)
-  @NotNull
   private long updatedEpochMilli;
 
   public Employee() {
