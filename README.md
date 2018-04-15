@@ -44,6 +44,10 @@ to store data. Each microservices uses its own database in the Postgres
 instance.
 
 To troubleshoot the Kafka server open a shell by `docker exec -it
-auditEmployee_kafka_1 /bin/sh` and then take a look at the records in the
+wfm_kafka_1 /bin/sh` and then take a look at the records in the
 topic using `kafka-console-consumer.sh --bootstrap-server kafka:9092
---topic order --from-beginning`.
+--topic audit --from-beginning`.
+
+To troubleshoot the Postgres server open a shell by `docker exec -it
+wfm_postgres_1 /bin/sh` and then enter the psql console app with:
+ `psql -U dbuser dbaudit` or `psql -U dbuser dbemployee`.
