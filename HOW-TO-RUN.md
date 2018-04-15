@@ -48,11 +48,10 @@ Afterwards the Docker images should have been created. They have the prefix
 REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
 wfm_audit             latest              0b798e7d955c        3 seconds ago       213MB
 wfm_employee          latest              b8c643a28a4a        6 seconds ago       214MB
-wfm_apache            latest              0f13fa3e6473        18 minutes ago      283MB
 wfm_postgres          latest              44dd87e766a5        21 minutes ago      269MB
 ubuntu                16.04               f975c5035748        5 weeks ago         112MB
 postgres              9.6.3               33b13ed6b80a        8 months ago        269MB
-anapsix/alpine-java   jdk8                ed55c27d366d        21 months ago       171MB
+ewolff/docker-java    latest              54ad137c4841        8 months ago        170MB
 ```
 
 ## Start Docker Containers
@@ -100,7 +99,6 @@ Creating wfm_postgres_1  ... done
 Creating wfm_kafka_1     ... done
 Creating wfm_employee_1  ... done
 Creating wfm_audit_1     ... done
-Creating wfm_apache_1    ... done
 ```
 
 Check whether all containers are running using `docker ps`:
@@ -109,17 +107,15 @@ Check whether all containers are running using `docker ps`:
 ```
 [~/wfm/docker]docker ps
 CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                                                NAMES
-a87d3671d7f0        employeeaudit_apache                 "/bin/sh -c 'apach..."   6 minutes ago       Up 6 minutes        0.0.0.0:8080->80/tcp                                 employeeaudit_apache_1
-3efa376d06a2        employeeaudit_invoicing              "/bin/sh -c '/usr/..."   6 minutes ago       Up 6 minutes        8080/tcp                                             employeeaudit_invoicing_1
-3dfe4b38d9d9        employeeaudit_order                  "/bin/sh -c '/usr/..."   6 minutes ago       Up 6 minutes        8080/tcp                                             employeeaudit_order_1
-554109ba07a3        employeeaudit_shipping               "/bin/sh -c '/usr/..."   6 minutes ago       Up 6 minutes        8080/tcp                                             employeeaudit_shipping_1
-b1ea3311f031        wurstmeister/kafka:0.10.2.1    "start-kafka.sh"         12 days ago         Up 6 minutes                                                             employeeaudit_kafka_1
-c83247820e4d        employeeaudit_postgres               "docker-entrypoint..."   12 days ago         Up 6 minutes        5432/tcp                                             employeeaudit_postgres_1
-a397c26c1947        wurstmeister/zookeeper:3.4.6   "/bin/sh -c '/usr/..."   12 days ago         Up 6 minutes        22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   employeeaudit_zookeeper_1
+44051d7353e8        wfm_audit                      "/bin/sh -c '/usr/bi…"   36 minutes ago      Up 36 minutes       0.0.0.0:5006->5006/tcp, 0.0.0.0:9090->9090/tcp       wfm_audit_1
+988a91c30209        wfm_employee                   "/bin/sh -c '/usr/bi…"   36 minutes ago      Up 36 minutes       0.0.0.0:5005->5005/tcp, 0.0.0.0:8080->8080/tcp       wfm_employee_1
+ed6c76a7d092        wurstmeister/kafka:1.0.0       "start-kafka.sh"         30 hours ago        Up 36 minutes                                                            wfm_kafka_1
+d4e05ceb60ab        wurstmeister/zookeeper:3.4.6   "/bin/sh -c '/usr/sb…"   30 hours ago        Up 30 hours         22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   wfm_zookeeper_1
+871c7f6afc84        wfm_postgres                   "docker-entrypoint.s…"   30 hours ago        Up 30 hours         5432/tcp                                             wfm_postgres_1
 ```
 
 ## Using the Application
 
-
+The application is currently under construction :)
 
 
