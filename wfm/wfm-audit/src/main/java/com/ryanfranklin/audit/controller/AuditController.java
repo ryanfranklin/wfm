@@ -35,8 +35,9 @@ public class AuditController {
     this.auditService = auditService;
   }
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<List<Audit>> get(@RequestParam Map<String, String> queryParameters) {
+    logger.debug("Processing GET reuest for audits");
 
     AuditSearch auditSearch = getAuditSearch(queryParameters);
 
