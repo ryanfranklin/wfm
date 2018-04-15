@@ -1,5 +1,8 @@
 package com.ryanfranklin.audit.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum AuditEntity {
 
   EMPLOYEE("employee");
@@ -18,7 +21,23 @@ public enum AuditEntity {
    *
    * @return the string identifier of this entity enum
    */
-  String getEntityString() {
+  @Override
+  public String toString() {
     return entity;
   }
+
+  /**
+   * Gets the audit entity by the name given.
+   * @param name the string representation of the enum
+   * @return the AuditEntity enum or null if it is not found by the name
+   */
+  public static AuditEntity getAuditEntity(String name)  {
+    for (AuditEntity entity : AuditEntity.values()) {
+      if (entity.toString().equals(name)) {
+        return entity;
+      }
+    }
+    return null;
+  }
+
 }

@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -25,36 +24,33 @@ public class Audit {
   private long entityId;
   @Column(nullable = false)
   @NotNull
-  @Size(min = 1)
-  private String entity;
+  private AuditEntity entity;
   @Column(nullable = false)
   @NotNull
-  private AuditAction auditAction;
+  private AuditAction action;
   @Column(nullable = false)
   private long updatedEpochMilli;
 
   /**
    * Constructs an audit object.
    *
-   * @param id the identifier of this audit instance
    * @param entityId the identifier of the entity being audited
    * @param entity the entity being audited
-   * @param auditAction the action on the entity that spurred the audit
+   * @param action the action on the entity that spurred the audit
    * @param updatedEpochMilli the time stamp that the audit occurred in epoch milliseconds
    */
-  public Audit(long id, long entityId, String entity, AuditAction auditAction,
+  public Audit(long entityId, AuditEntity entity, AuditAction action,
       long updatedEpochMilli) {
-    this.id = id;
     this.entityId = entityId;
     this.entity = entity;
-    this.auditAction = auditAction;
+    this.action = action;
     this.updatedEpochMilli = updatedEpochMilli;
   }
 
   /**
    * Gets id
    *
-   * @return the id
+   * @return the id or null if an id hasn't been generated yet
    */
   public long getId() {
     return id;
@@ -92,7 +88,7 @@ public class Audit {
    *
    * @return the entity
    */
-  public String getEntity() {
+  public AuditEntity getEntity() {
     return entity;
   }
 
@@ -101,26 +97,26 @@ public class Audit {
    *
    * @param entity the of entity of the Audit
    */
-  public void setEntity(String entity) {
+  public void setEntity(AuditEntity entity) {
     this.entity = entity;
   }
 
   /**
-   * Gets auditAction
+   * Gets action
    *
-   * @return the auditAction
+   * @return the action
    */
-  public AuditAction getAuditAction() {
-    return auditAction;
+  public AuditAction getAction() {
+    return action;
   }
 
   /**
-   * Sets auditAction
+   * Sets action
    *
-   * @param auditAction the of auditAction of the Audit
+   * @param action the of action of the Audit
    */
-  public void setAuditAction(AuditAction auditAction) {
-    this.auditAction = auditAction;
+  public void setAction(AuditAction action) {
+    this.action = action;
   }
 
   /**

@@ -22,14 +22,11 @@ class EmployeeController {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  private EmployeeRepository employeeRepository;
   private EmployeeService employeeService;
 
   @Autowired
-  private EmployeeController(EmployeeService employeeService,
-      EmployeeRepository employeeRepository) {
+  private EmployeeController(EmployeeService employeeService) {
     super();
-    this.employeeRepository = employeeRepository;
     this.employeeService = employeeService;
   }
 

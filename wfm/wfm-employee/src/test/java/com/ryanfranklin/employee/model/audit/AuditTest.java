@@ -8,7 +8,7 @@ import org.junit.Test;
 public class AuditTest {
 
   private static long ENTITY_ID = 123456;
-  private static String ENTITY = AuditEntity.EMPLOYEE.getEntityString();
+  private static AuditEntity ENTITY = AuditEntity.EMPLOYEE;
   private static AuditAction ACTION = AuditAction.CREATE;
   private static long UPDATE_EPOCH_MILLI = Instant.now().toEpochMilli();
 

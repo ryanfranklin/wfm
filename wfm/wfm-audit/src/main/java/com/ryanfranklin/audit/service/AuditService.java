@@ -1,7 +1,12 @@
 package com.ryanfranklin.audit.service;
 
+import com.ryanfranklin.audit.exception.BadRequestException;
 import com.ryanfranklin.audit.model.Audit;
+import com.ryanfranklin.audit.model.AuditEntity;
+import com.ryanfranklin.audit.model.AuditSearch;
+import com.ryanfranklin.audit.model.AuditSearchCombination;
 import com.ryanfranklin.audit.repository.AuditRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +31,32 @@ public class AuditService {
     Audit savedAudit = auditRepository.save(audit);
     log.trace("Saved audit: {} for type: {}.", savedAudit.getId(), savedAudit.getEntity());
 
+  }
+
+  public List<Audit> getAudits(AuditSearch auditSearch) {
+
+    AuditSearchCombination searchCombo = auditSearch.getCombination();
+
+    switch (searchCombo) {
+      case NONE:
+        return auditRepository.findAll();
+
+      case ENTITY:
+        return auditRepository.findByEntity(auditSearch.getAuditEntity());
+
+      case ACTION:
+        return auditRepository.findByAction(auditSearch.getAuditAction());
+
+      case ENTITY_ACTION:
+        return auditRepository.findByEntityAndAction(auditSearch.getAuditEntity(), auditSearch.getAuditAction());
+
+      default:
+        log.debug("Audit search combination {} not supported.", searchCombo);
+        throw new BadRequestException(); //TODO: Return descriptive message with response.
+    }
+  }
+
+  public List<Audit>  getAudits() {
+    return null;
   }
 }

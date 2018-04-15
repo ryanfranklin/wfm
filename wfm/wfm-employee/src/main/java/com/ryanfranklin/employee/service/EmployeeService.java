@@ -3,6 +3,8 @@ package com.ryanfranklin.employee.service;
 import com.ryanfranklin.employee.exception.NotFoundException;
 import com.ryanfranklin.employee.model.Employee;
 import com.ryanfranklin.employee.model.audit.Audit;
+import com.ryanfranklin.employee.model.audit.AuditAction;
+import com.ryanfranklin.employee.model.audit.AuditEntity;
 import com.ryanfranklin.employee.repository.EmployeeRepository;
 import java.time.Instant;
 import org.slf4j.Logger;
@@ -39,14 +41,14 @@ public class EmployeeService {
     persistedEmployee.setEmail(employee.getEmail());
     persistedEmployee.setUpdatedEpochMilli(Instant.now().toEpochMilli());
     Employee result = employeeRepository.save(persistedEmployee);
-    // TODO: SEND AUDIT EVENT
+    createAuditEvent(result.getId(), AuditAction.UPDATE);
     return result;
   }
 
   public Employee createEmployee(Employee employee) {
     employee.setUpdatedEpochMilli(Instant.now().toEpochMilli());
     Employee result = employeeRepository.save(employee);
-    // TODO: SEND AUDIT EVENT
+    createAuditEvent(result.getId(), AuditAction.CREATE);
     return result;
   }
 
@@ -57,7 +59,7 @@ public class EmployeeService {
       logger.debug("There was an error deleting an employee.", e);
       throw new NotFoundException();
     }
-    // TODO: SEND AUDIT EVENT
+    createAuditEvent(id, AuditAction.DELETE);
   }
 
   public Employee getEmployeeById(long id) {
@@ -69,9 +71,19 @@ public class EmployeeService {
     return employee;
   }
 
-  private void createAuditEvent(Audit audit) {
+  private void createAuditEvent(long employeeId, AuditAction action) {
 
-    kafkaTemplate.send("audit", audit.getEntity(), audit);
+    Audit audit = new Audit(
+        employeeId,
+        AuditEntity.EMPLOYEE,
+        action,
+        Instant.now().toEpochMilli()
+    );
+
+    String eventId = audit.getEntity() + "_" + audit.getEntityId();
+    logger.debug("Sending audit event with id: {}.", eventId);
+
+    kafkaTemplate.send("audit", eventId, audit);
   }
 
 }

@@ -6,6 +6,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 
 import com.ryanfranklin.employee.model.Employee;
+import com.ryanfranklin.employee.model.audit.Audit;
+import com.ryanfranklin.employee.model.audit.AuditAction;
+import com.ryanfranklin.employee.model.audit.AuditEntity;
 import com.ryanfranklin.employee.repository.EmployeeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +16,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
 
-  private static String URL_PATH = "/employee/";
   private static long EMPLOYEE_ID = 123456;
   private static String EMPLOYEE_FIRST_NAME = "ryan";
   private static String EMPLOYEE_LAST_NAME = "franklin";
@@ -25,12 +28,15 @@ public class EmployeeServiceTest {
 
   @Mock
   private EmployeeRepository employeeRepository;
+  @Mock
+  private KafkaTemplate<String, Audit> kafkaTemplate;
 
   @InjectMocks
   private EmployeeService employeeService;
 
 
   private Employee employee;
+  private Audit audit;
 
   @Before
   public void setup() {
@@ -39,6 +45,13 @@ public class EmployeeServiceTest {
     employee.setFirstName(EMPLOYEE_FIRST_NAME);
     employee.setLastName(EMPLOYEE_LAST_NAME);
     employee.setEmail(EMPLOYEE_EMAIL);
+
+    audit = new Audit(
+        10000,
+        AuditEntity.EMPLOYEE,
+        AuditAction.CREATE,
+        10000
+    );
   }
 
 
@@ -55,6 +68,7 @@ public class EmployeeServiceTest {
   public void updateEmployeeSuccess() {
     given(employeeRepository.findOne(employee.getId())).willReturn(employee);
     given(employeeRepository.save(employee)).willReturn(employee);
+    given(kafkaTemplate.send("audit", "eventId", audit)).willReturn(null);
 
     Employee result = employeeService.updateEmployee(employee.getId(), employee);
 
@@ -64,6 +78,7 @@ public class EmployeeServiceTest {
   @Test
   public void createEmployee() {
     given(employeeRepository.save(employee)).willReturn(employee);
+    given(kafkaTemplate.send("audit", "eventId", audit)).willReturn(null);
 
     Employee result = employeeService.createEmployee(employee);
 
