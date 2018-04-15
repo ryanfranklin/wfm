@@ -8,7 +8,6 @@ import com.ryanfranklin.audit.model.AuditEntity;
 import com.ryanfranklin.audit.service.AuditService;
 import java.util.List;
 import java.util.Map;
-import javassist.tools.web.BadHttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,24 +36,33 @@ public class AuditController {
 
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<List<Audit>> get(@RequestParam Map<String, String> queryParameters) {
-    logger.debug("Processing GET reuest for audits");
+    logger.info("Processing GET reuest for audits");
 
     AuditSearch auditSearch = getAuditSearch(queryParameters);
 
-    List<Audit> audit = auditService.getAudits(auditSearch);
-    return new ResponseEntity<>(audit, HttpStatus.OK);
+    List<Audit> audits = auditService.getAudits(auditSearch);
+    logger.trace("Returning response with audits {}", audits);
+    return new ResponseEntity<>(audits, HttpStatus.OK);
   }
 
   //TODO: getAllAuditableEntities
   //TODO: getAllAuditableActions
 
-  private AuditSearch getAuditSearch(Map<String, String> queryParameters) {
+  /**
+   * Gets the AuditSearch instance that holds the search parameters
+   * given by searchParams. If an invalid value is given for a valid
+   * key, then a BadRequestException is thrown.
+   *
+   * @param searchParams map of search options
+   * @return the AuditSearch instance that holds the search parameters
+   */
+  private AuditSearch getAuditSearch(Map<String, String> searchParams) {
     //Extract supported queryParams
-    String entityString = queryParameters.get(ENTITY);
-    String actionString = queryParameters.get(ACTION);
+    String entityString = searchParams.get(ENTITY);
+    String actionString = searchParams.get(ACTION);
     AuditEntity entity = null;
     AuditAction action = null;
-    // TODO: Support other AuditSearch conditions
+    // TODO: Support other AuditSearch conditions (timestamp, id)
 
     if (entityString != null) {
       entity = AuditEntity.getAuditEntity(entityString);
@@ -73,8 +81,9 @@ public class AuditController {
     }
 
     AuditSearch auditSearch = new AuditSearch();
-    auditSearch.setAuditEntity(entity);
-    auditSearch.setAuditAction(action);
+    auditSearch.setEntity(entity);
+    auditSearch.setAction(action);
+
     return auditSearch;
   }
 }
