@@ -25,8 +25,8 @@ See [How to run](HOW-TO-RUN.md) for details.
 Once you perform a create, update, delete operation on an employee, the
 audit info should be available from the audit service.
 
-Remarks on the Code
--------------------
+Application Notes
+-----------------
 
 The microservices are: 
 - [wfm-employee]    <http://localhost:8080/employee>.
