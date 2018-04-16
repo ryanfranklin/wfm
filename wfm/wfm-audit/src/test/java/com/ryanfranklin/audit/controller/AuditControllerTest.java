@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -69,10 +70,8 @@ public class AuditControllerTest {
         ACTION_CREATE,
         UPDATE_EPOCH_MILLI
     );
-
-//    audits = new ArrayList<>();
-//    audits.add(audit);
-
+    audits = new ArrayList<>();
+    audits.add(audit);
     searchByEntity = new AuditSearch();
     searchByEntity.setEntity(AuditEntity.EMPLOYEE);
 
@@ -83,10 +82,8 @@ public class AuditControllerTest {
 
   @Test
   public void getAuditByIdSuccess() throws Exception {
-    List<Audit> audits = new ArrayList<>();
-    audits.add(audit);
 
-    given(auditService.getAudits(null)).willReturn(audits);
+    given(auditService.getAudits(new AuditSearch())).willReturn(audits);
 
     MockHttpServletResponse response = mockMvc.perform(get(URL_PATH)
         .param(ENTITY_QUERY_PARAM_KEY, ENTITY_QUERY_PARAM_VALUE)
@@ -94,8 +91,7 @@ public class AuditControllerTest {
         .andReturn()
         .getResponse();
 
-//    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-//    assertThat(response.getContentAsString()).isEqualTo(
-//        jacksonAuditTester.write(audits).getJson());
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+//    assertThat(response.getContentAsString()).isEqualTo(jacksonAuditTester.write(audits).getJson());
   }
 }
