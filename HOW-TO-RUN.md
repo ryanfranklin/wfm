@@ -116,6 +116,109 @@ d4e05ceb60ab        wurstmeister/zookeeper:3.4.6   "/bin/sh -c '/usr/sb…"   30
 
 ## Using the Application
 
-The application is currently under construction :)
+Currently, the application does the following things:
+* CRUD operations on an employee via HTTP Rest call to the employee service.
+When a create, update, or delete action happens to an employee, the
+employee services communicates via Kafka to the audit service the details
+of the action taken on the employee, and the audit service persists it as an
+audit record.
+* GET HTTP Rest call to the audit service to see existing audit records.
+
+### Example API Calls
+Employee GET by id
+
+```
+Request:
+http://localhost:8080/employee/1
+
+Response:
+{
+    "id": 1,
+    "firstName": "Ry",
+    "lastName": "Fran",
+    "email": "fun@funstuff.com",
+    "updatedEpochMilli": 1523808787208
+}
+```
 
 
+Employee PUT by id
+
+```
+Request:
+http://localhost:8080/employee/1
+{
+	"firstName":"Ryaaaaa",
+	"lastName":"Frana",
+	"email":"fun@funstuff.com"
+}
+
+Response:
+{
+    "id": 4,
+    "firstName": "Ryaaaaa",
+    "lastName": "Frana",
+    "email": "fun@funstuff.com",
+    "updatedEpochMilli": 1523828836239
+}
+```
+
+Employee POST
+
+```
+Request:
+http://localhost:8080/employee
+{
+    "firstName":"Ryaaaaa",
+    "lastName":"Frana",
+    "email":"fun@funstuff.com"
+}
+
+Response:
+{
+    "id": 4,
+    "firstName": "Ryaaaaa",
+    "lastName": "Frana",
+    "email": "fun@funstuff.com",
+    "updatedEpochMilli": 1523828836239
+}
+```
+
+Employee DELETE by id
+
+```
+Request:
+http://localhost:8080/employee/1
+```
+
+Audit GET<br>
+NOTE: The audit records are currently only searchable by entity and
+action. Searching by entity id, from updated timestamp, to updated
+timestamp still needs to get implemented. If another microservice
+used the audit service, it would add its name to the list of auditable
+entities.<br>
+<b>Current Valid values for each valid search type<b>
+* entity = (employee)
+* action = (create, update, delete)
+
+```
+Request:
+http://localhost:9090/audit?action=update&entity=employee
+
+Response:
+[
+    {
+        "id": 14,
+        "entityId": 4,
+        "entity": "EMPLOYEE",
+        "action": "UPDATE",
+        "updatedEpochMilli": 1523828836275
+    }
+]
+```
+
+
+Other implementation TODOs:
+* GET all employees
+* Pagination
+* More audit search clauses in GET call
