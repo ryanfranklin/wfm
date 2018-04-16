@@ -1,5 +1,7 @@
 package com.ryanfranklin.employee.model.audit;
 
+import static org.apache.commons.lang.Validate.notNull;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -28,6 +30,9 @@ public class Audit {
    * @param updatedEpochMilli the time stamp that the audit occurred in epoch milliseconds
    */
   public Audit(long entityId, AuditEntity entity, AuditAction action, long updatedEpochMilli) {
+    notNull(entity);
+    notNull(action);
+
     this.entityId = entityId;
     this.entity = entity;
     this.action = action;

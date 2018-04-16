@@ -1,5 +1,7 @@
 package com.ryanfranklin.audit.controller;
 
+import static org.apache.commons.lang.Validate.*;
+
 import com.ryanfranklin.audit.exception.BadRequestException;
 import com.ryanfranklin.audit.model.Audit;
 import com.ryanfranklin.audit.model.AuditAction;
@@ -8,6 +10,7 @@ import com.ryanfranklin.audit.model.AuditEntity;
 import com.ryanfranklin.audit.service.AuditService;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +60,9 @@ public class AuditController {
    * @return the AuditSearch instance that holds the search parameters
    */
   private AuditSearch getAuditSearch(Map<String, String> searchParams) {
+
+    notNull(searchParams, "audit search parameter map");
+
     //Extract supported queryParams
     String entityString = searchParams.get(ENTITY);
     String actionString = searchParams.get(ACTION);

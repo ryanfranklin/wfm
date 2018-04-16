@@ -1,5 +1,7 @@
 package com.ryanfranklin.employee.service;
 
+import static org.apache.commons.lang.Validate.notNull;
+
 import com.ryanfranklin.employee.exception.NotFoundException;
 import com.ryanfranklin.employee.model.Employee;
 import com.ryanfranklin.employee.model.audit.Audit;
@@ -7,6 +9,7 @@ import com.ryanfranklin.employee.model.audit.AuditAction;
 import com.ryanfranklin.employee.model.audit.AuditEntity;
 import com.ryanfranklin.employee.repository.EmployeeRepository;
 import java.time.Instant;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ public class EmployeeService {
   }
 
   public Employee updateEmployee(long id, Employee employee) {
+    notNull(employee, "employee");
+
     Employee persistedEmployee = employeeRepository.findOne(id);
     if (persistedEmployee == null) {
       logger.debug("Could not find the employee by id: {}", id);
@@ -46,6 +51,8 @@ public class EmployeeService {
   }
 
   public Employee createEmployee(Employee employee) {
+    notNull(employee, "employee");
+
     employee.setUpdatedEpochMilli(Instant.now().toEpochMilli());
     Employee result = employeeRepository.save(employee);
     createAuditEvent(result.getId(), AuditAction.CREATE);
@@ -72,7 +79,7 @@ public class EmployeeService {
   }
 
   private void createAuditEvent(long employeeId, AuditAction action) {
-
+    notNull(action, "audit action");
     Audit audit = new Audit(
         employeeId,
         AuditEntity.EMPLOYEE,

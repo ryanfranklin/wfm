@@ -1,5 +1,7 @@
 package com.ryanfranklin.employee.model;
 
+import static org.apache.commons.lang.Validate.notNull;
+
 import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +47,10 @@ public class Employee {
   }
 
   public Employee(String firstName, String lastName, String email) {
+    notNull(firstName);
+    notNull(lastName);
+    notNull(email);
+
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;

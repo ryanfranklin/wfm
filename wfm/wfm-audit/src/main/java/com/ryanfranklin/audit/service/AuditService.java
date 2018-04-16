@@ -1,5 +1,7 @@
 package com.ryanfranklin.audit.service;
 
+import static org.apache.commons.lang.Validate.notNull;
+
 import com.ryanfranklin.audit.exception.BadRequestException;
 import com.ryanfranklin.audit.model.Audit;
 import com.ryanfranklin.audit.model.AuditSearch;
@@ -27,12 +29,17 @@ public class AuditService {
 
   @Transactional
   public void saveAudit(Audit audit) {
+    
+    notNull(audit, "audit");
+
     Audit savedAudit = auditRepository.save(audit);
     log.trace("Saved audit: {} for type: {}.", savedAudit.getId(), savedAudit.getEntity());
 
   }
 
   public List<Audit> getAudits(AuditSearch auditSearch) {
+
+    notNull(auditSearch, "audit search");
 
     AuditSearchCombination searchCombo = auditSearch.getCombination();
 

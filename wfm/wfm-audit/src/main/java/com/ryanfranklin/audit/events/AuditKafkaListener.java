@@ -2,6 +2,7 @@ package com.ryanfranklin.audit.events;
 
 import com.ryanfranklin.audit.model.Audit;
 import com.ryanfranklin.audit.service.AuditService;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,8 +22,9 @@ public class AuditKafkaListener {
   }
 
   @KafkaListener(topics = "audit")
-  public void auditListener(Audit audit, Acknowledgment acknowledgment) {
-    log.info("Revceived audit  " + audit.getId());
+  public void auditListener(@Valid Audit audit, Acknowledgment acknowledgment) {
+
+    log.info("Revceived audit for: " + audit.getEntity() + " with id: " + audit.getId());
     auditService.saveAudit(audit);
     acknowledgment.acknowledge();
   }
